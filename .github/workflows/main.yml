@@ -47,7 +47,6 @@ jobs:
                   context: .
                   file: docker/Dockerfile
                   push: true
-                  # 這裡必須與你的 Docker Hub 倉庫路徑一致
                   tags: vic0119/cloud-native:latest
 
     deploy:
@@ -62,16 +61,27 @@ jobs:
                   username: ec2-user
                   key: ${{ secrets.EC2_SSH_KEY }}
                   script: |
-                      # 確保專案目錄存在
+                      echo "--- 開始部署程序 ---"
+                      if [ ! -f /usr/local/bin/docker-compose ]; then
+                          echo "正在安裝 Docker Compose..."
+                          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                          sudo chmod +x /usr/local/bin/docker-compose
+                      fi
                       mkdir -p ~/cloud-native
                       cd ~/cloud-native
 
-                      # 從 GitHub 獲取最新的 docker-compose.yml 內容 (確保連動更新)
-                      # 這裡也可以考慮使用 git pull，但直接拉取 image 是更簡單的做法
-
-                      # 停止並移除舊容器
-                      sudo docker compose down || true
-
-                      # 拉取最新映像檔並背景執行
-                      sudo docker compose pull
-                      sudo docker compose up -d --force-recreate
+                      cat <<EOF > docker-compose.yml
+                      version: '3.8'
+                      services:
+                        app:
+                          image: vic0119/cloud-native:latest
+                          ports:
+                            - "80:8000"
+                          restart: always
+                      EOF
+                      echo "正在更新容器服務..."
+                      sudo /usr/local/bin/docker-compose down --remove-orphans || true
+                      sudo /usr/local/bin/docker-compose pull
+                      sudo /usr/local/bin/docker-compose up -d --force-recreate
+                      echo "部署完成"
+                      sudo docker ps
