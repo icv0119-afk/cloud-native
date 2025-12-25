@@ -4,7 +4,6 @@ provider "aws" {
 
 resource "aws_security_group" "web_sg" {
   name_prefix = "cloud-native-sg-"
-  name        = "web-server-sg"
   ingress {
     from_port   = 22
     to_port     = 22
