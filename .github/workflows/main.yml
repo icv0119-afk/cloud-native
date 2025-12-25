@@ -45,7 +45,7 @@ jobs:
               uses: docker/build-push-action@v4
               with:
                   context: .
-                  file: docker/dockerfile
+                  file: docker/Dockerfile
                   push: true
                   tags: vic0119/cloud-native:latest
 

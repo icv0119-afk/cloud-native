@@ -28,7 +28,7 @@ resource "aws_security_group" "web_sg" {
 resource "aws_instance" "app_server" {
   ami           = "ami-09cd9fdbf26acc6b4"
   instance_type = "t2.micro"
-
+  key_name      = "devops-key" 
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
   user_data = <<-EOF
