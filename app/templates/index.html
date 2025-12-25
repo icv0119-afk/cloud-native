@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps 工程師 | 個人簡歷</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8fafc;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="text-slate-800">
+
+    <!-- Header Section -->
+    <header class="hero-gradient text-white py-20 px-6 shadow-2xl">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="mb-6 inline-block p-4 rounded-full bg-blue-500/20">
+                <i class="fas fa-cloud-upload-alt text-5xl text-blue-400"></i>
+            </div>
+            <h1 class="text-5xl font-extrabold mb-4 tracking-tight">我是你的名字</h1>
+            <p class="text-xl text-slate-300 font-light tracking-wide">雲端自動化與維運工程師 (DevOps Engineer)</p>
+            <div class="mt-8 flex justify-center gap-4">
+                <span class="px-4 py-2 bg-slate-700/50 rounded-lg border border-slate-600 text-sm">
+                    <i class="fab fa-aws mr-2"></i>AWS SAA 準備中
+                </span>
+                <span class="px-4 py-2 bg-slate-700/50 rounded-lg border border-slate-600 text-sm">
+                    <i class="fab fa-docker mr-2"></i>Docker Certified
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 -mt-12 pb-20">
+        <!-- 核心專案 -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 mb-10 border border-slate-100">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                <i class="fas fa-project-diagram mr-3 text-blue-600"></i>雲端實戰專案
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-6 rounded-xl border border-slate-100 bg-slate-50 card-hover">
+                    <h3 class="font-bold text-lg mb-2 text-blue-700">Cloud-Native Monitoring Hub</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        實現從基礎設施 IaC (Terraform) 到自動化部署 (GitHub Actions) 的完整流水線，整合 Nginx 反向代理與 CloudWatch 監控。
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-white border border-slate-200 rounded">Terraform</span>
+                        <span
+                            class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-white border border-slate-200 rounded">Nginx</span>
+                        <span
+                            class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-white border border-slate-200 rounded">CI/CD</span>
+                    </div>
+                </div>
+                <!-- 預留第二個專案 -->
+                <div
+                    class="p-6 rounded-xl border border-dashed border-slate-300 flex items-center justify-center text-slate-400">
+                    <div><i class="fas fa-plus mr-2"></i>更多專案開發中...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技能與日誌系統 -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="md:col-span-2 bg-white rounded-2xl shadow-lg p-8 border border-slate-100">
+                <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                    <i class="fas fa-tools mr-3 text-blue-600"></i>技術棧與工具
+                </h2>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="space-y-3">
+                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> AWS Cloud
+                            Services</div>
+                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Docker /
+                            K3s</div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Terraform
+                            (IaC)</div>
+                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> GitHub
+                            Actions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-600 rounded-2xl shadow-lg p-8 text-white">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-server mr-3"></i>系統狀態
+                </h2>
+                <div class="space-y-4 text-sm opacity-90">
+                    <p>API Version: <span class="font-mono bg-blue-700 px-2 py-1 rounded">v1.1.0</span></p>
+                    <p>Environment: <span class="font-mono bg-blue-700 px-2 py-1 rounded">AWS-Production</span></p>
+                    <div class="pt-4 border-t border-blue-400/30">
+                        <p class="italic text-xs">"Automate everything, measure everything."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-10 text-slate-400 text-xs">
+        <p>&copy; 2024 Powered by FastAPI & Nginx on AWS EC2</p>
+    </footer>
+</body>
+
+</html>
