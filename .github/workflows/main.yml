@@ -6,12 +6,16 @@ on:
 
 jobs:
     terraform:
+        name: Infrastructure Management
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v2
-            - name: Terraform Apply
+
+            - name: Terraform Init & Apply
               env:
                   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -20,24 +24,33 @@ jobs:
                   terraform init
                   terraform apply -auto-approve
 
-    # 階段 2: Docker 打包與推送
     build-and-push:
+        name: Docker Image Build & Push
         needs: terraform
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - name: Docker Login
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
+
+            - name: Docker Hub Login
               uses: docker/login-action@v2
               with:
                   username: ${{ secrets.DOCKER_USERNAME }}
                   password: ${{ secrets.DOCKER_PASSWORD }}
-            - name: Build and Push
-              run: |
-                  docker build -t ${{ secrets.DOCKER_USERNAME }}/monitoring-app:latest -f docker/Dockerfile .
-                  docker push ${{ secrets.DOCKER_USERNAME }}/monitoring-app:latest
 
-    # 階段 3: SSH 部署
+            - name: Build and Push to Docker Hub
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  file: docker/Dockerfile
+                  push: true
+                  tags: vic0119/cloud-native:latest
+
     deploy:
+        name: Deploy to EC2
         needs: build-and-push
         runs-on: ubuntu-latest
         steps:
@@ -48,7 +61,16 @@ jobs:
                   username: ec2-user
                   key: ${{ secrets.EC2_SSH_KEY }}
                   script: |
-                      # 進入對應的 cloud-native 目錄
+                      # 確保專案目錄存在
+                      mkdir -p ~/cloud-native
                       cd ~/cloud-native
-                      docker-compose pull
-                      docker-compose up -d --force-recreate
+
+                      # 從 GitHub 獲取最新的 docker-compose.yml 內容 (確保連動更新)
+                      # 這裡也可以考慮使用 git pull，但直接拉取 image 是更簡單的做法
+
+                      # 停止並移除舊容器
+                      sudo docker compose down || true
+
+                      # 拉取最新映像檔並背景執行
+                      sudo docker compose pull
+                      sudo docker compose up -d --force-recreate
