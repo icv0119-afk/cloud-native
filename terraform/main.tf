@@ -38,7 +38,6 @@ resource "aws_instance" "app_server" {
               sudo systemctl start docker
               sudo systemctl enable docker
               sudo usermod -aG docker ec2-user
-              # 安裝 Docker Compose
               sudo curl -L "[https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname](https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname) -s)-$(uname -m)" -o /usr/local/bin/docker-compose
               sudo chmod +x /usr/local/bin/docker-compose
               EOF

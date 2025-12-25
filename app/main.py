@@ -6,9 +6,6 @@ app = FastAPI(title="Cloud-Native Monitoring Hub")
 
 @app.get("/")
 def read_root():
-    """
-    基礎進入點，驗證服務是否正常運行
-    """
     return {
         "message": "Hello from FastAPI on AWS EC2",
         "status": "running",
@@ -17,9 +14,6 @@ def read_root():
 
 @app.get("/version")
 def get_version():
-    """
-    版本管理路由，用於部署後的版本驗證
-    """
     return {
         "version": "1.0.1",
         "python_version": sys.version,
@@ -28,9 +22,6 @@ def get_version():
 
 @app.get("/health")
 def health_check():
-    """
-    健康檢查路由，供 Nginx 或 Docker Healthcheck 使用
-    """
     return {"status": "ok"}
 
 if __name__ == "__main__":
