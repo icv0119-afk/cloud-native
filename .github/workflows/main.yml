@@ -47,6 +47,7 @@ jobs:
                   context: .
                   file: docker/Dockerfile
                   push: true
+                  # 這裡必須與你的 Docker Hub 倉庫路徑一致
                   tags: vic0119/cloud-native:latest
 
     deploy:
