@@ -1,39 +1,15 @@
---- Terraform 相關檔案 (絕對不要上傳，避免超過 GitHub 檔案限制) ---
-
 .terraform/
 *.tfstate
 *.tfstate.backup
 .terraform.lock.hcl
 .terraform.tfstate.lock.info
 
---- Python 相關檔案 ---
-
-pycache/
-*.py[cod]
-*$py.class
-.venv/
-venv/
-ENV/
-build/
-dist/
-*.egg-info/
-
---- Docker 與日誌檔案 ---
-
 *.log
 docker-compose.override.yml
-
---- 作業系統垃圾檔案 ---
 
 .DS_Store
 Thumbs.db
 
---- 敏感資訊 (安全性關鍵) ---
-
-包含你的 AWS Key Pair (.pem)
-
 *.pem
-
-包含可能的環境變數設定檔
 
 .env
