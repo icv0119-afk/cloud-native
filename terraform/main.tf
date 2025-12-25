@@ -1,8 +1,7 @@
 provider "aws" {
-  region = "ap-northeast-1" # 東京
+  region = "ap-northeast-1" 
 }
 
-# 1. 建立 Security Group (取代手動設定)
 resource "aws_security_group" "web_sg" {
   name        = "web-server-sg"
   description = "Allow HTTP and SSH"
@@ -28,10 +27,8 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-# 2. 建立 EC2 並自動安裝 Docker (User Data)
 resource "aws_instance" "app_server" {
-  ami           = "ami-09cd9fdbf26acc6b4" # Amazon Linux 2023
+  ami           = "ami-09cd9fdbf26acc6b4"
   instance_type = "t2.micro"
 
   vpc_security_group_ids = [aws_security_group.web_sg.id]
@@ -51,8 +48,4 @@ resource "aws_instance" "app_server" {
   tags = {
     Name = "CloudNativeHub-Instance"
   }
-}
-
-output "public_ip" {
-  value = aws_instance.app_server.public_ip
 }
