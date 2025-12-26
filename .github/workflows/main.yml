@@ -69,7 +69,7 @@ jobs:
             fi
             mkdir -p ~/cloud-native/docker
             cd ~/cloud-native
-
+            echo "開始DOCKERCOMPOSE"
             sudo /usr/local/bin/docker-compose pull
             sudo /usr/local/bin/docker-compose up -d --force-recreate
             echo "部署完成"
